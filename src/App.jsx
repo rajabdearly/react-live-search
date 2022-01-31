@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import CarList from "./CarList";
 
 import MOCK_DATA from './MOCK_DATA.json';
@@ -19,19 +19,15 @@ function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [carList, setCarList] = useState(data);
 
-  const filteredCars = useMemo(
-    () => filterCars(searchTerm, data),
-    [searchTerm, data]
-  );
 
   useEffect(() => {
-    const delayDebounceFn = setTimeout(() => {
+    const Debounce = setTimeout(() => {
+      const filteredCars = filterCars(searchTerm, data);
       setCarList(filteredCars);
     }, 300);
 
-    return () => clearTimeout(delayDebounceFn);
-  }, [searchTerm, filteredCars]);
-
+    return () => clearTimeout(Debounce);
+  }, [searchTerm]);
 
 
 
